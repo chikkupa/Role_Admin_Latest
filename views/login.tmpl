@@ -1,0 +1,44 @@
+{{define "login"}}
+{{template "login_top"}}
+
+<script type="text/javascript">
+window.history.forward();
+window.onload = function()
+{
+  window.history.forward();
+};
+
+window.onunload = function() {
+  null;
+};
+</script>
+
+<div class="account-container">	
+	<img src="img/logo.png">
+	<div class="content clearfix">		
+		<form action="/" method="post">		
+			<h1>Member Login</h1>					
+			<div class="login-fields">				
+				<p>Please provide your details</p>				
+				<div class="field">
+					<label for="username">Username</label>
+					<input type="text" id="username" name="username" value="" placeholder="Username" class="login username-field" />
+				</div>
+				
+				<div class="field mb_0">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field"/>
+				</div>				
+			</div>			
+			<div style="color: red; font-weight: bold;">
+				{{.}}
+			</div>
+			<div class="login-actions">		
+				<a href="/register" class="regtr">Register</a>						
+				<button class="button btn btn-success btn-large">Sign In</button>				
+			</div>
+		</form>
+</div></div>
+
+{{template "login_bottom"}}
+{{end}}

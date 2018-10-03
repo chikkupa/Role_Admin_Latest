@@ -1,0 +1,70 @@
+{{define "edit_admin"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12">	      		
+					
+					<div class="widget">					
+						<div class="widget-content">
+							<div class="plan-features">
+								<form action="/edit_admin?id={{.User.ID}}" method="post">	
+									<input type="hidden" name="id" value="{{.User.ID}}">
+									<p>Create your account:</p>	
+
+									<ul>
+										<li><strong>Username: &nbsp; </strong> <input class="login" type="text" value="{{.User.Username}}" name="username" required></li>
+										<li><strong>Password: &nbsp; </strong> <input class="login" type="password" name="password" required></li>
+										<li><strong>Name: &nbsp; </strong> <input type="text username-field" name="name" value="{{.User.Name}}"></li>
+										<li><strong>Last Name: &nbsp; </strong> <input type="text" name="lastname" value="{{.User.Lastname}}"></li>
+										<li><strong>Age: &nbsp; </strong> <input type="number"  name="age" value="{{.User.Age}}"></li>
+										<li><strong>Gender: &nbsp; </strong>  
+											<select id="gender" name="gender" class="login" required>
+												<option value=""></option>
+												<option value="Male" {{if eq .User.Gender "Male"}}selected{{end}}>Male</option>
+												<option value="Female" {{if eq .User.Gender "Female"}}selected{{end}}>Female</option>
+											</select>
+										</li>
+										<li><strong>Status: &nbsp; </strong>  
+											<select id="status" name="status" class="login" required>
+												<option value=""></option>
+												<option value="1" {{if eq .User.Status 1}}selected{{end}}>Active</option>
+												<option value="10" {{if eq .User.Status 10}}selected{{end}}>Deactive</option>
+											</select>
+										</li>
+										<li><strong>Task: &nbsp; </strong> <input type="text" name="task" value="{{.User.Task}}"></li>
+										<li><strong>Role: &nbsp; </strong>  
+											<select id="role" name="role" class="login" required>
+												<option value=""></option>
+												<option value="1" {{if eq .User.Role 1}}selected{{end}}>Admin</option>
+												<option value="3" {{if eq .User.Role 3}}selected{{end}}>User Type 2</option>
+												<option value="4" {{if eq .User.Role 4}}selected{{end}}>User Type 3</option>
+											</select>
+										</li>
+									</ul>
+									{{if .Has_error}}
+									<div style="color: red; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{else}}
+									<div style="color: green; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{end}}
+									<div class="login-actions">
+										<button class="button btn btn-primary btn-large">Register</button>
+									</div>
+									</ul>
+								</form>	
+							</div>
+						</div>
+					</div>
+
+				</div>
+	      	
+</div></div></div></div>
+
+{{template "bottom"}}
+{{end}}

@@ -1,0 +1,43 @@
+{{define "create_rating_valuation_type"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12">	      		
+					
+					<div class="widget">					
+						<div class="widget-content">
+							<div class="plan-features">
+								<form action="/rating_valuation_type_add" method="post">	
+									<p>Create Valuation Type:</p>	
+
+									<ul>
+        								<li><strong>Name: &nbsp; </strong> <input type="text username-field" name="name" required></li>
+        								<li><strong>Description: &nbsp; </strong> <input type="text username-field" name="description" required></li>                                        
+									</ul>
+									{{if .HasError}}
+									<div style="color: red; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{else}}
+									<div style="color: green; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{end}}
+									<div class="login-actions">
+										<button class="button btn btn-primary btn-large">Add New</button>
+									</div>
+									</ul>
+								</form>	
+							</div>
+						</div>
+					</div>
+
+				</div>
+	      	
+</div></div></div></div>
+
+{{template "bottom"}}
+{{end}}

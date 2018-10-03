@@ -1,0 +1,282 @@
+{{define "roles"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">
+	<div class="main-inner">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<div class="widget">	
+						<div class="widget-header"> 
+							<i class="icon-th-list"></i>
+							<h3>Roles</h3>
+						</div>				
+						<div class="widget-content">
+							<div class="plan-features">
+								<form action="/roles" method="post">	
+									<ul>
+										<li><strong>Role: &nbsp; </strong>  
+											<select id="role" name="role" class="login" onchange="populateFields()" required>
+												<option></option>
+												{{range .Roles}}
+												<option value="{{.Value}}">{{.Role}}</option>
+												{{end}}
+											</select>
+										</li>
+									</ul>
+
+									<ul>
+										<li><strong>Description: &nbsp; </strong>  
+											<textarea name="description" id="description"></textarea>
+										</li>
+									</ul>
+
+									<table width="100%" style="">
+										<tr>
+											<th>Permission</th>
+											<th colspan="4" style="text-align: center;">Actions<th>
+										</tr>
+										<tr>
+											<td>Staff</td>
+											<td><input type="checkbox" name="staff_add" id="staff_add" value="1"> Add</td>
+											<td><input type="checkbox" name="staff_view" id="staff_view" value="1"> View</td>
+											<td><input type="checkbox" name="staff_edit" id="staff_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="staff_delete" id="staff_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>User</td>
+											<td><input type="checkbox" name="user_add" id="user_add" value="1"> Add</td>
+											<td><input type="checkbox" name="user_view" id="user_view" value="1"> View</td>
+											<td><input type="checkbox" name="user_edit" id="user_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="user_delete" id="user_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Files</td>
+											<td><input type="checkbox" name="files_add" id="files_add" value="1"> Add</td>
+											<td><input type="checkbox" name="files_view" id="files_view" value="1"> View</td>
+											<td><input type="checkbox" name="files_edit" id="files_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="files_delete" id="files_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status</td>
+											<td><input type="checkbox" name="status_add" id="status_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_view" id="status_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_edit" id="status_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_delete" id="status_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Roles</td>
+											<td><input type="checkbox" name="roles_add" id="roles_add" value="1"> Add</td>
+											<td><input type="checkbox" name="roles_view" id="roles_view" value="1"> View</td>
+											<td><input type="checkbox" name="roles_edit" id="roles_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="roles_delete" id="roles_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Permissions</td>
+											<td><input type="checkbox" name="permissions_add" id="permissions_add" value="1"> Add</td>
+											<td><input type="checkbox" name="permissions_view" id="permissions_view" value="1"> View</td>
+											<td><input type="checkbox" name="permissions_edit" id="permissions_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="permissions_delete" id="permissions_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 1</td>
+											<td><input type="checkbox" name="status_1_add" id="status_1_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_1_view" id="status_1_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_1_edit" id="status_1_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_1_delete" id="status_1_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 2</td>
+											<td><input type="checkbox" name="status_2_add" id="status_2_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_2_view" id="status_2_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_2_edit" id="status_2_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_2_delete" id="status_2_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 3</td>
+											<td><input type="checkbox" name="status_3_add" id="status_3_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_3_view" id="status_3_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_3_edit" id="status_3_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_3_delete" id="status_3_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 4</td>
+											<td><input type="checkbox" name="status_4_add" id="status_4_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_4_view" id="status_4_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_4_edit" id="status_4_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_4_delete" id="status_4_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 5</td>
+											<td><input type="checkbox" name="status_5_add" id="status_5_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_5_view" id="status_5_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_5_edit" id="status_5_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_5_delete" id="status_5_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 6</td>
+											<td><input type="checkbox" name="status_6_add" id="status_6_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_6_view" id="status_6_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_6_edit" id="status_6_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_6_delete" id="status_6_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 7</td>
+											<td><input type="checkbox" name="status_7_add" id="status_7_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_7_view" id="status_7_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_7_edit" id="status_7_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_7_delete" id="status_7_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 8</td>
+											<td><input type="checkbox" name="status_8_add" id="status_8_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_8_view" id="status_8_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_8_edit" id="status_8_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_8_delete" id="status_8_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 9</td>
+											<td><input type="checkbox" name="status_9_add" id="status_9_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_9_view" id="status_9_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_9_edit" id="status_9_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_9_delete" id="status_9_delete" value="1"> Delete</td>
+										</tr>
+										<tr>
+											<td>Status 10</td>
+											<td><input type="checkbox" name="status_10_add" id="status_10_add" value="1"> Add</td>
+											<td><input type="checkbox" name="status_10_view" id="status_10_view" value="1"> View</td>
+											<td><input type="checkbox" name="status_10_edit" id="status_10_edit" value="1"> Edit</td>
+											<td><input type="checkbox" name="status_10_delete" id="status_10_delete" value="1"> Delete</td>
+										</tr>
+									</table>
+
+									{{if .Has_error}}
+									<div style="color: red; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{else}}
+									<div style="color: green; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{end}}
+									<div class="login-actions">
+										<button class="button btn btn-primary btn-large">Update</button>
+									</div>
+								</form>	
+							</div>
+						</div>
+					</div>
+
+					
+        		</div>
+        	</div>
+</div></div></div>
+<script type="text/javascript">
+
+var roles = {{.Roles}};
+
+function populateFields(){
+	clearFields();
+
+	var role = parseInt($("#role").val());
+
+	for(i = 0; i < roles.length; i++){
+		if(role == roles[i].value){
+			$("#description").val(roles[i].description)
+
+			var permissions = jQuery.parseJSON(roles[i].permission);
+
+			for(var j = 0; j < permissions.length; j++){
+				switch(permissions[j].id){
+					case 1 : if(permissions[j].value == 1) $("#staff_add").prop('checked', true); break;
+					case 2 : if(permissions[j].value == 1) $("#staff_view").prop('checked', true); break;
+					case 3 : if(permissions[j].value == 1) $("#staff_edit").prop('checked', true); break;
+					case 4 : if(permissions[j].value == 1) $("#staff_delete").prop('checked', true); break;
+
+					case 5 : if(permissions[j].value == 1) $("#user_add").prop('checked', true); break;
+					case 6 : if(permissions[j].value == 1) $("#user_view").prop('checked', true); break;
+					case 7 : if(permissions[j].value == 1) $("#user_edit").prop('checked', true); break;
+					case 8 : if(permissions[j].value == 1) $("#user_delete").prop('checked', true); break;
+
+					case 9 : if(permissions[j].value == 1) $("#files_add").prop('checked', true); break;
+					case 10 : if(permissions[j].value == 1) $("#files_view").prop('checked', true); break;
+					case 11 : if(permissions[j].value == 1) $("#files_edit").prop('checked', true); break;
+					case 12 : if(permissions[j].value == 1) $("#files_delete").prop('checked', true); break;
+
+					case 13 : if(permissions[j].value == 1) $("#status_add").prop('checked', true); break;
+					case 14 : if(permissions[j].value == 1) $("#status_view").prop('checked', true); break;
+					case 15 : if(permissions[j].value == 1) $("#status_edit").prop('checked', true); break;
+					case 16 : if(permissions[j].value == 1) $("#status_delete").prop('checked', true); break;
+
+					case 17 : if(permissions[j].value == 1) $("#roles_add").prop('checked', true); break;
+					case 18 : if(permissions[j].value == 1) $("#roles_view").prop('checked', true); break;
+					case 19 : if(permissions[j].value == 1) $("#roles_edit").prop('checked', true); break;
+					case 20 : if(permissions[j].value == 1) $("#roles_delete").prop('checked', true); break;
+
+					case 21 : if(permissions[j].value == 1) $("#permissions_add").prop('checked', true); break;
+					case 22 : if(permissions[j].value == 1) $("#permissions_view").prop('checked', true); break;
+					case 23 : if(permissions[j].value == 1) $("#permissions_edit").prop('checked', true); break;
+					case 24 : if(permissions[j].value == 1) $("#permissions_delete").prop('checked', true); break;
+
+					case 25 : if(permissions[j].value == 1) $("#status_1_add").prop('checked', true); break;
+					case 26 : if(permissions[j].value == 1) $("#status_1_view").prop('checked', true); break;
+					case 27 : if(permissions[j].value == 1) $("#status_1_edit").prop('checked', true); break;
+					case 28 : if(permissions[j].value == 1) $("#status_1_delete").prop('checked', true); break;
+
+					case 29 : if(permissions[j].value == 1) $("#status_2_add").prop('checked', true); break;
+					case 30 : if(permissions[j].value == 1) $("#status_2_view").prop('checked', true); break;
+					case 31 : if(permissions[j].value == 1) $("#status_2_edit").prop('checked', true); break;
+					case 32 : if(permissions[j].value == 1) $("#status_2_delete").prop('checked', true); break;
+
+					case 33 : if(permissions[j].value == 1) $("#status_3_add").prop('checked', true); break;
+					case 34 : if(permissions[j].value == 1) $("#status_3_view").prop('checked', true); break;
+					case 35 : if(permissions[j].value == 1) $("#status_3_edit").prop('checked', true); break;
+					case 36 : if(permissions[j].value == 1) $("#status_3_delete").prop('checked', true); break;
+
+					case 37 : if(permissions[j].value == 1) $("#status_4_add").prop('checked', true); break;
+					case 38 : if(permissions[j].value == 1) $("#status_4_view").prop('checked', true); break;
+					case 39 : if(permissions[j].value == 1) $("#status_4_edit").prop('checked', true); break;
+					case 40 : if(permissions[j].value == 1) $("#status_4_delete").prop('checked', true); break;
+
+					case 41 : if(permissions[j].value == 1) $("#status_5_add").prop('checked', true); break;
+					case 42 : if(permissions[j].value == 1) $("#status_5_view").prop('checked', true); break;
+					case 43 : if(permissions[j].value == 1) $("#status_5_edit").prop('checked', true); break;
+					case 44 : if(permissions[j].value == 1) $("#status_5_delete").prop('checked', true); break;
+
+					case 45 : if(permissions[j].value == 1) $("#status_6_add").prop('checked', true); break;
+					case 46 : if(permissions[j].value == 1) $("#status_6_view").prop('checked', true); break;
+					case 47 : if(permissions[j].value == 1) $("#status_6_edit").prop('checked', true); break;
+					case 48 : if(permissions[j].value == 1) $("#status_6_delete").prop('checked', true); break;
+
+					case 49 : if(permissions[j].value == 1) $("#status_7_add").prop('checked', true); break;
+					case 50 : if(permissions[j].value == 1) $("#status_7_view").prop('checked', true); break;
+					case 51 : if(permissions[j].value == 1) $("#status_7_edit").prop('checked', true); break;
+					case 52 : if(permissions[j].value == 1) $("#status_7_delete").prop('checked', true); break;
+
+					case 53 : if(permissions[j].value == 1) $("#status_8_add").prop('checked', true); break;
+					case 54 : if(permissions[j].value == 1) $("#status_8_view").prop('checked', true); break;
+					case 55 : if(permissions[j].value == 1) $("#status_8_edit").prop('checked', true); break;
+					case 56 : if(permissions[j].value == 1) $("#status_8_delete").prop('checked', true); break;
+
+					case 57 : if(permissions[j].value == 1) $("#status_9_add").prop('checked', true); break;
+					case 58 : if(permissions[j].value == 1) $("#status_9_view").prop('checked', true); break;
+					case 59 : if(permissions[j].value == 1) $("#status_9_edit").prop('checked', true); break;
+					case 60 : if(permissions[j].value == 1) $("#status_9_delete").prop('checked', true); break;
+
+					case 61 : if(permissions[j].value == 1) $("#status_10_add").prop('checked', true); break;
+					case 62 : if(permissions[j].value == 1) $("#status_10_view").prop('checked', true); break;
+					case 63 : if(permissions[j].value == 1) $("#status_10_edit").prop('checked', true); break;
+					case 64 : if(permissions[j].value == 1) $("#status_10_delete").prop('checked', true); break;
+				}
+			}
+		}
+	}
+}
+
+function clearFields(){
+	$("#description").val('');
+	$('input:checkbox').removeAttr('checked');
+}
+</script>
+{{template "bottom"}}
+{{end}}

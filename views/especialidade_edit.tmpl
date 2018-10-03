@@ -1,0 +1,45 @@
+{{define "especialidade_edit"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12">	      		
+					
+					<div class="widget">					
+						<div class="widget-content">
+							<div class="plan-features">
+								<form action="/edit_especialidade?id={{.Especialidade.ID}}" method="post">	
+									<input type="hidden" name="id" value="{{.Especialidade.ID}}">
+									<p>Especialidade Edit:</p>	
+
+									<ul>
+										<li><strong>Name: &nbsp; </strong> <input type="text username-field" name="name" value="{{.Especialidade.Name}}"></li>
+										<li><strong>Expiry Date: &nbsp; </strong> <input type="text" name="expiry_date" value="{{.Especialidade.Expiry_date}}"></li>
+										<li><strong>Description: &nbsp; </strong> <textarea name="description">{{.Especialidade.Description}}</textarea></li>
+									</ul>
+									{{if .Has_error}}
+									<div style="color: red; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{else}}
+									<div style="color: green; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{end}}
+									<div class="login-actions">
+										<button class="button btn btn-primary btn-large">Update</button>
+									</div>
+									</ul>
+								</form>	
+							</div>
+						</div>
+					</div>
+
+				</div>
+	      	
+</div></div></div></div>
+
+{{template "bottom"}}
+{{end}}

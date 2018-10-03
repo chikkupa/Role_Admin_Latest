@@ -1,0 +1,58 @@
+{{ define "showcomponent" }}
+<ul>
+<li><strong>Login: &nbsp; </strong> {{.Username}}</li>
+<li><strong>Estado Civil: &nbsp; </strong> {{.Stcivil}}</li>
+<li><strong>Cpf: &nbsp; </strong> {{.Cpf}}</li>
+<li><strong>RG: &nbsp; </strong> {{.Rg}}</li>
+<li><strong>UF Emissor: </strong> {{.Ufemissor}}</li>
+<li><strong>Órgão Emissor: </strong>{{ .Orgemissor}}</li>
+<li><strong>CRM: </strong>{{ .Crm}}</li>
+<li><strong>Especialidade Médica: </strong>{{ .Especialidademed}}</li>
+<li><strong>Endereço: </strong>{{ .Enderecocasa}}</li>
+<li><strong>Número: </strong>{{ .Numero}}</li>
+<li><strong>Complemento: </strong>{{ .Complemento}}</li>
+<li><strong>Bairro: </strong>{{ .Bairro}}</li>
+<li><strong>Cidade: </strong>{{ .Cidade}}</li>
+<li><strong>UF: </strong>{{ .Ufresidencia}}</li>
+<li><strong>CEP: </strong>{{ .Cep}}</li>
+<li><strong>Telefone Celular: </strong>{{ .Celular}}</li>
+<li><strong>Telefone Residencial: </strong>{{ .Telresidencial}}</li>
+<li><strong>Email Feed: </strong>{{ .Emailfeed}}</li>
+<li><strong>Endereço Comercial: </strong>{{ .Enderecocomercial}}</li>
+<li><strong>Complemento Comercial: </strong>{{ .Complementocomercial}}</li>
+<li><strong>Uf Comercial: </strong>{{ .Ufcomercial}}</li>
+<li><strong>Tel Consultorio: </strong>{{ .Telconsultorio}}</li>
+<li><strong>Tel Consultorioramal: </strong>{{ .Telconsultorioramal}}</li>
+<li><strong>Email Consultorio: </strong>{{ .Emailconsultorio}}</li>
+<li><strong>Medicore Sponsavelnome: </strong>{{ .Medicoresponsavelnome}}</li>
+<li><strong>Medicore Sponsavelcrmm: </strong>{{ .Medicoresponsavelcrmm}}</li>
+<li><strong>Dados De Pagametos: </strong></li>
+<li><strong>Tipohonoravelmedico: </strong>{{ .Tipohonoravelmedico}}</li>
+<li><strong>Tipopagamento: </strong>{{ .Tipopagamento}}</li>
+<li><strong>Codigobanco: </strong>{{ .Codigobanco}}</li>
+<li><strong>Agencia: </strong>{{ .Agencia}}</li>
+<li><strong>Conta: </strong>{{ .Conta}}</li>
+<li><strong>Recolheinssoutrainst: </strong>{{ .Recolheinssoutrainst}}</li>
+<li><strong>Numeropis: </strong>{{ .Numeropis}}</li>
+<li><strong>Numeropisautonomo: </strong>{{ .Numeropisautonomo}}</li>
+<li><strong>Carromarca: </strong>{{ .Carromarca}}</li>
+<li><strong>Carromodelo: </strong>{{ .Carromodelo}}</li>
+<li><strong>Carrocor: </strong>{{ .Carrocor}}</li>
+<li><strong>Carroano: </strong>{{ .Carroano}}</li>
+<li><strong>Renavam: </strong>{{ .Renavam}}</li>
+<li><strong>Placa: </strong>{{ .Placa}}</li>
+<li><strong>Status: </strong>
+		{{if eq .Status 0}}Pending Email Verification{{end}}
+		{{if eq .Status 1}}Active{{end}}
+		{{if eq .Status 2}}Pendent{{end}}
+		{{if eq .Status 3}}OK{{end}}
+		{{if eq .Status 4}}Uploaded{{end}}
+		{{if eq .Status 5}}Verified{{end}}
+		{{if eq .Status 6}}Approved{{end}}
+		{{if eq .Status 7}}Meet{{end}}
+		{{if eq .Status 8}}Accepted{{end}}
+		{{if eq .Status 9}}Denied{{end}}
+		{{if eq .Status 10}}Deactivated{{end}}
+</li>
+</ul>
+{{ end }}

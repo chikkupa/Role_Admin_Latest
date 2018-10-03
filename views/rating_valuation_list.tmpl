@@ -1,0 +1,54 @@
+{{define "rating_valuation_list"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">
+	<div class="main-inner">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+
+					<div class="widget widget-table action-table">
+						<div class="widget-header"> 
+							<i class="icon-th-list"></i>
+							<h3>Valution List</h3>
+							<div style="float: right;"><a href="/create_rating_valuation" class="button btn btn-success btn-large" >Create Valution</a></div>
+						</div>
+						<div class="widget-content">
+							<table id="example" class="table table-striped table-bordered" style="width:100%">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Type</th>
+										<th>Minimum Score</th>
+                                        <th>Maximum Score</th>
+                                        <th>Importance</th>
+										<th>Date Added</th>
+										<th>Added By</th>
+										<th>Action</th>
+										<th>Delete</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{range .List}}
+									<tr>
+										<td>{{.Name}}</td>
+										<td>{{.TypeName}}</td>
+										<td>{{.MinimumScore}}</td>
+                                        <td>{{.MaximumScore}}</td>
+                                        <td>{{.Importance}}</td>
+										<td>{{.CreateDate}}</td>
+										<td>{{.AddedBy}}</td>
+										<td><a href="/edit_rating_valuation?id={{.ID}}">Edit / View</a></td>
+										<td><a href="/delete_rating_valuation?id={{.ID}}">Delete</a></td>
+									</tr>
+									{{end}}
+								</tbody>
+							</table>
+						</div>
+            		</div>
+
+        		</div>
+        	</div>
+</div></div></div>
+{{template "bottom"}}
+{{end}}

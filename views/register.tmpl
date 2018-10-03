@@ -1,0 +1,456 @@
+{{define "registration"}}
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  font-family: Raleway;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #4CAF50;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<body>		
+		<form id="regForm" action="/register" method="post" enctype="multipart/form-data">		
+			 <h1>Cadastro Medico</h1>
+                                 <!-- One "tab" for each step in the form: -->
+
+       <div class="tab">
+          <p><input type="text" maxlength=15 autocomplete = on placeholder="CPF..." oninput="this.className = ''" name="cpf" id="cpf"> </p>
+       </div>
+       <div class="tab">
+          <p>DO YOU HAVE ONE OR MORE ESPECIALIDADE ? <input type="radio" name="especialidademed" id="especialidade_yes" value="1">Yes <input type="radio" name="especialidademed" id="especialidade_no" value="0">No</p>
+       </div>
+       <div class="tab">
+          PICK A ESPECIALIDADE
+          <br>
+          <table width="100%">
+            {{range $index, $item := .EspecialidadeList}}
+            <tr>
+              <td>
+                <input type="checkbox" onclick="especialidadeCheck({{$index}})" name="especialidade_{{.ID}}" id="especialidade_{{$index}}" value="{{.ID}}">
+              </td>
+              <td>
+                {{.Name}}
+              </td>
+            </tr>
+            {{end}}
+          </table>
+
+            {{range $index, $item := .EspecialidadeList}}
+            <div id="especialidade_file_div_{{$index}}" style="visibility: hidden;">
+                <input type="file" name="especialidade_file_{{.ID}}" id="especialidade_file_{{$index}}" style="visibility: hidden;">
+              </div>
+            {{end}}
+          
+       </div>
+       <div class="tab">Login e Senha:
+         <p><input type="text" maxlength=15 placeholder="Usuário Desejado... " oninput="this.className = ''" name="username"></p>
+         <p><input type="password" maxlength=15 placeholder="Senha..." oninput="this.className = ''" name="password"></p>
+         <p><input type="email" maxlength=30 placeholder="E-mail..." oninput="this.className = ''" name="email"> </p>
+
+
+       </div>
+       <div class="tab">Informações Profissionais:
+         <p><input type="text" maxlength=15 autocomplete = on placeholder="Primeiro Nome..." oninput="this.className = ''" name="name"> </p>
+         <p><input type="text" maxlength=15 autocomplete = on placeholder="Sobre Nome..." oninput="this.className = ''" name="lastname"> </p>
+         <p><div class="custom-select" style="width:100%;"><select oninput="this.className = ''" name="gender">
+                     <option value="">Escolha Seu Gênero</option>
+                     <option value="masculino">masculino</option>
+                     <option value="feminino">feminino</option>
+         </select></div></p>
+         <p><div class="custom-select" style="width:100%;"><select oninput="this.className = ''" name="stcivil">
+                     <option value="">Escolha Seu Estado Civil</option>
+                     <option value="Solteiro">Solteiro</option>
+                     <option value="Casado">Casado</option>
+                     <option value="Outros">Outros</option>
+         </select></div></p>
+         <p><div class="custom-select" style="width:100%;"><select oninput="this.className = ''" name="crmedica">
+                    <option value="">Conclusão Residência Médica:(Reconhecida pela CNRM-MEC)</option>
+                    <option value="SIM">SIM</option>
+                    <option value="NAO">NÃO</option>
+        </select></div></p>
+        <p><input type="text" maxlength=50 autocomplete = on placeholder="Descrição..." oninput="this.className = ''" name="descricrmedica"> </p>
+        <p><div class="custom-select" style="width:100%;"><select oninput="this.className = ''" name="Tituloespecialista">
+                    <option value="">Titulo de Especialista:(AMB ou Sociedade Brasileira de Medicina)</option>
+                    <option value="SIM">SIM</option>
+                    <option value="NAO">NÃO</option>
+        </select></div></p>
+        <p><input type="text" maxlength=50 autocomplete = on placeholder="Descrição..." oninput="this.className = ''" name="descritituloespecialista"> </p>
+        
+        <p><input placeholder="Data de Nascimento..." type="text" id="calendario" oninput="this.className = ''" name="dob"></p>
+        <p><input type="text" maxlength=15 autocomplete = on placeholder="RG..." oninput="this.className = ''" name="rg"> </p>
+        <p><input type="text" maxlength=2 autocomplete = on placeholder="Estado Emissor..." oninput="this.className = ''" name="ufemissor"> </p>
+        <p><input type="text" maxlength=3 autocomplete = on placeholder="Orgão Emissor..." oninput="this.className = ''" name="orgemissor"> </p>
+        <p><input type="text" maxlength=15 autocomplete = on placeholder="CRM..." oninput="this.className = ''" name="crm"> </p>
+        <p><input type="text" maxlength=2 autocomplete = on placeholder="Estado Emissor..." oninput="this.className = ''" name="ufcrm"> </p>
+
+     </div>
+
+     <div class="tab">Endereço Recidência:
+        <p><input type="text" maxlength=50 autocomplete = on placeholder="Endereço... " oninput="this.className = ''" name="enderecocasa"></p>
+        <p><input type="number" maxlength=5 placeholder="Numero..." oninput="this.className = ''" name="numero"></p>
+        <p><input maxlength=15 placeholder="complemento..." oninput="this.className = ''" name="complemento"></p>
+        <p><input type="text" maxlength=30 autocomplete = on placeholder="Bairro..." oninput="this.className = ''" name="bairro"></p>
+        <p><input type="text" maxlength=30 autocomplete = on placeholder="Cidade..." oninput="this.className = ''" name="cidade"></p>
+        <p><input placeholder="Cep..." oninput="this.className = ''" name="cep"></p>
+        <p><input type="text" maxlength=2 autocomplete = on placeholder="UF..." oninput="this.className = ''" name="ufresidencia"></p>
+        <p><input type="tel" maxlength=15 autocomplete = on placeholder="Celular..." oninput="this.className = ''" name="celular "> </p>
+        <p><input type="tel" maxlength=15 autocomplete = on placeholder="Telefone Recidencial..." oninput="this.className = ''" name="telresidencial"> </p>
+
+     </div>
+
+     <div class="tab">Endereço Comercial:
+        <p><input type="text" maxlength=50 autocomplete = on placeholder="Endereço Comercial... " oninput="this.className = ''" name="enderecocasa"></p>
+        <p><input maxlength=5 placeholder="Numero..." oninput="this.className = ''" name="numero"></p>
+        <p><input maxlength=15 placeholder="complemento..." oninput="this.className = ''" name="complementocomercial"></p>
+        <p><input type="text" maxlength=30 autocomplete = on placeholder="Bairro..." oninput="this.className = ''" name="bairrocomercial"></p>
+        <p><input type="text" maxlength=30 autocomplete = on placeholder="Cidade..." oninput="this.className = ''" name="cidadecomercial"></p>
+        <p><input placeholder="Cep..." oninput="this.className = ''" name="cepcomercial"></p>
+        <p><input type="text" maxlength=2 autocomplete = on placeholder="UF..." oninput="this.className = ''" name="ufresidencia"></p>
+        <p><input type="tel" maxlength=15 autocomplete = on placeholder="Telefone Consultório..." oninput="this.className = ''" name="telconsultorio  "> </p>
+        <p><input type="number" maxlength=7 autocomplete = on placeholder="Ramal..." oninput="this.className = ''" name="telconsultorioramal"> </p>
+        <p><input type="email" maxlength=30 placeholder="E-mail Consultório..." oninput="this.className = ''" name="emailconsultorio"> </p>
+        <p><input type="text" maxlength=15 autocomplete = on placeholder="Médico Responsável" oninput="this.className = ''" name="medicoresponsavelnome"> </p>
+        <p><input type="text" maxlength=15 autocomplete = on placeholder="CRM Médico Responsável..." oninput="this.className = ''" name="medicoresponsavelcrmm"> </p>
+        
+        <p><div class="custom-select" style="width:100%;"><select oninput="this.className = ''" name="tipohonoravelmedico">
+                    <option value="">Honorários</option>
+                    <option value="Autônomo">Autônomo</option>
+                    <option value="Jurídico">Jurídico</option>
+        </select></div></p>
+
+        <p><div class="custom-select" style="width:100%;"><select oninput="this.className = ''" name="tipopagamento">
+                    <option value="">Forma Pagamento</option>
+                    <option value="CHEQUE NOMINAL">Cheque Nominal</option>
+                    <option value="DEPÓSITO EM CONTA">Depósito em Conta</option>
+        </select></div></p>
+
+        <p><input type="number" maxlength=3 autocomplete = on placeholder="Código do Banco..." oninput="this.className = ''" name="bodigobanco"> </p>
+        <p><input type="number" maxlength=7 autocomplete = on placeholder="Agência..." oninput="this.className = ''" name="agencia"> </p>
+        <p><input type="number" maxlength=12 autocomplete = on placeholder="Conta Corrente..." oninput="this.className = ''" name="conta"> </p>
+        
+        <p><div class="custom-select" style="width:100%;"><select oninput="this.className = ''" name="recolheinssoutrainst">
+                    <option value="">Já recolhe INSS em outra instituição?</option>
+                    <option value="SIM">SIM</option>
+                    <option value="NÃO">NÃo</option>
+        </select></div></p> 
+
+        <p><input type="number" maxlength=15 autocomplete =on placeholder="Numero PIS..." oninput="this.className = ''" name="numeropis"> </p>
+        <p><input type="number" maxlength=15 autocomplete =on placeholder="Numero INSS - Autônomo..." oninput="this.className = ''" name="numeropisautonomo"> </p>
+
+     </div>
+
+      <div class="tab">Informações Do Veículo
+        <p><input type="text" maxlength=25 autocomplete = on placeholder="Marca" oninput="this.className = ''" name="carromarca"> </p>
+        <p><input type="text" maxlength=25 autocomplete = on placeholder="Modelo..." oninput="this.className = ''" name="carromodelo"> </p>
+        <p><input type="text" maxlength=25 autocomplete = on placeholder="Cor..." oninput="this.className = ''" name="carrocor"> </p>
+        <p><input type="number" maxlength=4 autocomplete = on placeholder="Ano..." oninput="this.className = ''" name="carroano"> </p>
+        <p><input type="text" maxlength=45 autocomplete = on placeholder="Renavan..." oninput="this.className = ''" name="renavam"> </p>
+        <p><input type="text" maxlength=12 autocomplete = on placeholder="Placa..." oninput="this.className = ''" name="placa"> </p>
+
+      </div>
+
+      <div class="tab"><b>Terms and Conditions</b>
+        <p>
+          {{.Terms}}
+        </p>
+        <div>
+          <input type="checkbox" id="terms_and_condtions"> I accept the terms and conditions
+        </div>
+      </div>
+
+      <div style="overflow:auto;">
+        <div style="float:right;">
+          <button type="button" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+          <button type="button" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
+        </div>
+      </div>
+      <!-- Circles which indicates the steps of the form: -->
+      <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+
+      </div>
+  
+     </form>
+
+    <script>
+
+      var especialidade = {{.EspecialidadeList}};
+var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the crurrent tab
+
+function especialidadeCheck(index){
+  if(document.getElementById("especialidade_" + index).checked){
+    var message = "By Click On Agree you are acceptin the terns and conditios of " + especialidade[index].Description + ".\nYou are telling the true.";
+
+    var result = confirm(message);
+
+    if(!result){
+      document.getElementById("especialidade_" + index).checked = false;
+    }
+    else{
+      showEspecialidadeFileInput(index)
+    }
+  }
+  else{
+    hideEspecialidadeFileInput(index)
+  }
+}
+
+function showEspecialidadeFileInput(index){
+  document.getElementById("especialidade_file_div_" + index).style.visibility = 'visible';
+  document.getElementById("especialidade_file_" + index).style.visibility = 'visible';
+}
+
+function hideEspecialidadeFileInput(index){
+  document.getElementById("especialidade_file_div_" + index).style.visibility = 'hidden';
+  document.getElementById("especialidade_file_" + index).style.visibility = 'hidden';
+}
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+
+  if(currentTab == 1){
+    if(document.getElementById("especialidade_no").checked)
+      n = 2;
+  }
+  
+  doNextPrev(n);
+}
+
+function doNextPrev(n){
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    if(document.getElementById("terms_and_condtions").checked){
+      document.getElementById("regForm").submit();
+    }else{
+      alert("Please accept the terms and conditios");
+      currentTab = currentTab - n;
+      showTab(currentTab);
+      return false;
+    }
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  if(currentTab == 8)
+    return true;
+  // This function deals with validation of the form fields
+
+  var cpf = document.getElementById("cpf").value;
+
+  if(!TestaCPF(cpf)){
+    alert("Invalid CPF");
+    return false;
+  }
+
+  if(currentTab == 0){
+    checkIfCPFExists(cpf);
+    return false;
+  }
+
+  var x, y, i, valid = true;
+
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "" && y[i].style.visibility != 'hidden') {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+
+function isValidCPF(cpf){
+  if(cpf.length != 12){
+    return false
+  }
+
+  var cpfArray = cpf.split("/");
+
+  alert("CPF array length: ", cpfArray.length)
+  return true;
+}
+
+function TestaCPF(strCPF) {
+    var Soma;
+    var Resto;
+    Soma = 0;   
+    //strCPF  = RetiraCaracteresInvalidos(strCPF,11);
+    if (strCPF == "00000000000")
+  return false;
+    for (i=1; i<=9; i++)
+  Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i); 
+    Resto = (Soma * 10) % 11;
+    if ((Resto == 10) || (Resto == 11)) 
+  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(9, 10)) )
+  return false;
+  Soma = 0;
+    for (i = 1; i <= 10; i++)
+       Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+    if ((Resto == 10) || (Resto == 11)) 
+  Resto = 0;
+    if (Resto != parseInt(strCPF.substring(10, 11) ) )
+        return false;
+    return true;
+}
+
+function checkIfCPFExists(cpf){
+  
+    $.post("http://localhost:9090/ap_is_cpf_available",
+    {
+      cpf: cpf,
+    },
+    function(data,status){
+        if(data.result){
+          doNextPrev(1);
+        }
+        else{
+          alert("CPF already exists!")
+        }
+        
+        // alert("Data: " + data.result + "\nStatus: " + status);
+    });
+}
+</script>
+
+</body>
+</html>
+{{end}}

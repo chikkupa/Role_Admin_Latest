@@ -1,0 +1,61 @@
+{{define "update_rating"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12">	      		
+					
+					<div class="widget">					
+						<div class="widget-content">
+							<div class="plan-features">
+								<form action="/rating_update?id={{.Rating.ID}}" method="post">
+                                    <input type="hidden" name="id" value="{{.Rating.ID}}">	
+									<p>Update Rating:</p>	
+
+									<ul>
+                                        <li><strong>User Id: &nbsp; </strong>{{.Rating.UserID}}</li>
+                                        {{if eq .Header.Role 1}}
+										<li>
+                                            <strong>Valuation: &nbsp; </strong>
+                                            <select name="valuation_id">
+                                                <option></option>
+                                                {{$ValuationID := .Rating.ValuationID}}
+                                                {{range .ValuationList}}
+                                                <option value="{{.ID}}" {{if eq $ValuationID .ID}}selected{{end}}>{{.Name}}</option>
+                                                {{end}}
+                                            </select>
+                                        </li>
+                                        {{else}}
+                                        <li><strong>Valuation: &nbsp; </strong>{{.Rating.ValuationName}}</li>
+                                        {{end}}
+                                        <li><strong>Description: &nbsp; </strong> <input type="text" name="description" value="{{.Rating.Description}}"></li>
+                                        <li><strong>Date of Valuation: &nbsp; </strong> <input type="text" name="date_of_valuation" value="{{.Rating.DateValuation}}"></li>
+                                        <li><strong>Score Given: &nbsp; </strong> <input type="number" name="given_score" value="{{.Rating.GivenScore}}"></li>
+                                        <li><strong>Comments: &nbsp; </strong> <input type="text" name="comments" value="{{.Rating.Comments}}"></li>
+									</ul>
+									{{if .HasError}}
+									<div style="color: red; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{else}}
+									<div style="color: green; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{end}}
+									<div class="login-actions">
+										<button class="button btn btn-primary btn-large">Update</button>
+									</div>
+									</ul>
+								</form>	
+							</div>
+						</div>
+					</div>
+
+				</div>
+	      	
+</div></div></div></div>
+
+{{template "bottom"}}
+{{end}}

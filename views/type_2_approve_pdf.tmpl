@@ -1,0 +1,104 @@
+{{define "approve_pdf"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12 bg-main">	      		
+					<div class="widget">		
+						<div class="pad_main">
+							<object data="{{.Filename}}" type="application/pdf" width="100%" height="600">
+								<a href="{{.Filename}}">test.pdf</a>
+							</object>
+						</div>	
+						<div class="row">
+							<div class="span4">
+								<div class="pad_main">
+									<h3>{{.File.Filename}}</h3>
+							</div></div>
+							<div class="span4">
+								<div class="pad_main">
+									<h3>{{.File.FileCategory}}</h3>
+							</div></div>
+							<div class="span4">
+								<div class="pad_main">
+									<h3>{{if eq .File.Status 0}}Pending{{end}}
+								{{if eq .File.Status 1}}Approved{{end}}
+								{{if eq .File.Status 2}}Denied{{end}}</h3>
+							</div></div>
+						</div>	
+						<!-- <div class="row">
+							<div class="span3">
+								<div class="pad_main">
+									<p>Collumn4 Here</p>
+							</div></div>
+							<div class="span3">
+								<div class="pad_main">
+									<p>Collumn5 Here</p>
+							</div></div>
+							<div class="span3">
+								<div class="pad_main">
+									<p>Collumn6 Here</p>
+							</div></div>
+							<div class="span3">
+								<div class="pad_main">
+									<p>Collumn7 Here</p>
+							</div></div>
+						</div> -->	
+						<div class="row">
+							<div class="span12">
+								<div class="pad_main">
+									<form id="approve_pdf_form" action="/approve_pdf?id={{.File.ID}}" method="post">	
+										<input type="hidden" name="id" value="{{.File.ID}}">
+										<input type="hidden" name="user_id" value="{{.File.UserID}}">
+										<input type="hidden" name="status" id="status" value="{{.File.Status}}">
+										<div style="padding:5px">								
+											<div class="field">
+												<label for="message">Expiry Date:</label>
+												<input type="text" id="expiry_date" name="expiry_date" placeholder="message" value="{{.File.ExpiryDate}}">
+										</div></div>
+										<div class="login-fields">								
+											<div class="field">
+												<label for="message">Message Box:</label>
+												<textarea type="text" id="message" name="message" value="" placeholder="message" class="login"/>{{.File.Message}}</textarea>
+										</div></div>
+										
+										<div class="login-actions">
+											<button type="button" onclick="approveFile();" class="button btn btn-success btn-large">APPROVE</button>
+											<button type="button" onclick="disapproveFile();" class="button btn btn-danger btn-large">DISAPPROVE</button>
+										</div>
+									</form>
+						</div></div></div>
+						<div style="text-align: center;">
+							{{ if eq .PreviousIndex 0 }}
+							 << Previous 
+							{{else}}
+							<a href="/approve_pdf?id={{.PreviousIndex}}"> << Previous </a> 
+							{{end}}
+							{{ if eq .NextIndex 0 }}
+							 Next >> 
+							{{else}}
+							<a href="/approve_pdf?id={{.NextIndex}}"> Next >> </a> 
+							{{end}}
+						</div>
+				</div></div>
+				
+				
+</div></div></div></div>
+<script type="text/javascript">
+	
+function approveFile(){
+	$("#status").val("1");
+	$("#approve_pdf_form").submit();
+}
+
+function disapproveFile(){
+	$("#status").val("2");
+	$("#approve_pdf_form").submit();
+}
+</script>
+
+{{template "bottom"}}
+{{end}}

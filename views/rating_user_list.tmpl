@@ -1,0 +1,70 @@
+{{define "rating_user_list"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">
+	<div class="main-inner">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+
+					<div class="widget widget-table action-table">
+						<div class="widget-header"> 
+							<i class="icon-th-list"></i>
+							<h3>Rating List</h3>
+							<div style="float: right;"><a href="/user_rating_add" class="button btn btn-success btn-large" >Create Rating</a></div>
+						</div>
+						<div class="widget-content">
+							<table id="example" class="table table-striped table-bordered" style="width:100%">
+								<thead>
+									<tr>
+										<tr>
+										<th>ID</th>
+										<th>V.Name</th>
+										<th>User Id</th>
+                                        <th>Date Valution</th>
+                                        <th>Description</th>
+										<th>Given Score</th>
+										<th>Date Added</th>
+                                        <th>Staff Id</th>
+                                        <th>Comments</th>
+										<th>Action</th>
+									</tr>
+									</tr>
+								</thead>
+								<tbody>
+									{{range .List}}
+									<tr>      
+										<td>{{.ID}}</td>
+										<td>{{.ValuationName}}</td>
+										<td>{{.UserID}}</td>
+                                        <td>{{.DateValuation}}</td>
+                                        <td>{{.Description}}</td>
+                                        {{if eq .Status 1}}
+                                        <td>{{.GivenScore}}</td>
+                                        {{else}}
+                                        <td>-</td>
+                                        {{end}}
+										<td>{{.CreateDate}}</td>
+                                        {{if eq .Status 1}}
+                                        <td>{{.StaffID}}</td>
+                                        {{else}}
+                                        <td>-</td>
+                                        {{end}}
+                                        <td>{{.Comments}}</td>
+                                        {{if eq .Status 0}}
+										<td><a href="/user_rating_update?id={{.ID}}">Edit</a></td>
+                                        {{else}}
+                                        <td>-</td>
+                                        {{end}}
+									</tr>
+									{{end}}
+								</tbody>
+							</table>
+						</div>
+            		</div>
+
+        		</div>
+        	</div>
+</div></div></div>
+{{template "bottom"}}
+{{end}}
