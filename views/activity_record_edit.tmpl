@@ -1,0 +1,64 @@
+{{define "activity_record_edit"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12">	      		
+					
+					<div class="widget">					
+						<div class="widget-content">
+							<div class="plan-features">
+								<form action="/edit_activity_record?id={{.ActivityRecord.ID}}" method="post">	
+									<input type="hidden" name="id" value="{{.ActivityRecord.ID}}">
+									<p>Activity Record Edit:</p>	
+
+									<ul>
+										<li><strong>User id: &nbsp; </strong> 
+											<select name="user_id" required>
+												<option></option>
+												{{$activity_record_user_id := .ActivityRecord.User_id}}
+												{{range .Users}}
+												<option value="{{.ID}}" {{ if eq .ID $activity_record_user_id}} selected {{end}}>{{.Name}}</option>
+												{{end}}
+											</select>
+										</li>
+        								<li><strong>Activity: &nbsp; </strong> <input type="text username-field" name="activity" value="{{.ActivityRecord.Activity}}"></li>
+        								<li><strong>Date: &nbsp; </strong> <input type="text username-field" name="date" value="{{.ActivityRecord.Date}}"></li>
+        								<li><strong>Duration: &nbsp; </strong> <input type="text username-field" name="duration" value="{{.ActivityRecord.Duration}}"></li>
+        								<li><strong>Assistant: &nbsp; </strong>
+        									<select name="assistant" required>
+        										<option></option>
+        										{{$activity_record_assistant := .ActivityRecord.Assistant}}
+												{{range .Users}}
+												<option value="{{.ID}}" {{ if eq .ID $activity_record_assistant}} selected {{end}}>{{.Name}}</option>
+												{{end}}
+											</select>
+        								<li>
+        								<li><strong>Description: &nbsp; </strong> <input type="text username-field" name="description" value="{{.ActivityRecord.Description}}"></li>
+									</ul>
+									{{if .Has_error}}
+									<div style="color: red; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{else}}
+									<div style="color: green; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{end}}
+									<div class="login-actions">
+										<button class="button btn btn-primary btn-large">Update</button>
+									</div>
+									</ul>
+								</form>	
+							</div>
+						</div>
+					</div>
+
+				</div>
+	      	
+</div></div></div></div>
+
+{{template "bottom"}}
+{{end}}

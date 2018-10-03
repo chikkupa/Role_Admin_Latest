@@ -1,0 +1,61 @@
+{{define "create_activity_record"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12">	      		
+					
+					<div class="widget">					
+						<div class="widget-content">
+							<div class="plan-features">
+								<form action="/create_activity_record" method="post">	
+									<p>Create Activity Record:</p>	
+
+									<ul>
+										<li><strong>User Id: &nbsp; </strong> 
+											<select name="user_id" required>
+												<option></option>
+												{{range .Users}}
+												<option value="{{.ID}}">{{.Name}}</option>
+												{{end}}
+											</select>
+											</li>
+        								<li><strong>Activity: &nbsp; </strong> <input type="text username-field" name="activity" required></li>
+        								<li><strong>Date: &nbsp; </strong> <input type="text username-field" name="date" required=""></li>
+        								<li><strong>Duration: &nbsp; </strong> <input type="text username-field" name="duration" required></li>
+        								<li><strong>Assistant: &nbsp; </strong> 
+        									<select name="assistant" required>
+        										<option></option>
+												{{range .Users}}
+												<option value="{{.ID}}">{{.Name}}</option>
+												{{end}}
+											</select>
+										<li>
+        								<li><strong>Description: &nbsp; </strong> <input type="text username-field" name="description" required></li>
+									</ul>
+									{{if .Has_error}}
+									<div style="color: red; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{else}}
+									<div style="color: green; font-weight: bold;">
+										{{ .Message}}
+									</div>
+									{{end}}
+									<div class="login-actions">
+										<button class="button btn btn-primary btn-large">Add New</button>
+									</div>
+									</ul>
+								</form>	
+							</div>
+						</div>
+					</div>
+
+				</div>
+	      	
+</div></div></div></div>
+
+{{template "bottom"}}
+{{end}}

@@ -1,0 +1,60 @@
+{{define "pdf_view"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12">	      		
+					<div class="widget">
+		
+						<div class="widget-content">
+							<object data="{{.Filename}}" type="application/pdf" width="100%" height="600">
+								<a href="{{.Filename}}">test.pdf</a>
+							</object>
+						</div>
+						<form method="post" action="/show_especialidade_pdf?id={{.File.ID}}">
+							<input type="hidden" name="id" value="{{.File.ID}}">
+						<ul>
+							<li><strong>Filename: &nbsp; </strong> {{.File.Filename}}</li>
+							<li><strong>Especialidade Id: &nbsp; </strong> {{.File.Especialidade_id}}</li>
+							<li><strong>Status: &nbsp; </strong>
+								{{if eq .File.Status 0}}Pending{{end}}
+								{{if eq .File.Status 1}}Approved{{end}}
+								{{if eq .File.Status 2}}Denied{{end}}
+							</li>
+							<li><strong>Expiry Date: &nbsp; </strong><input name="expiry_date" value="{{.File.Expiry_date}}"><input type="submit" value="Change Expiry Date"></li>
+							{{if eq .Role 2}}
+							<li><strong>Message: &nbsp; </strong>{{.File.Message}}</li>
+							{{end}}
+						</ul>
+						</form>
+
+						{{if and (eq .File.Status 2) (eq .Role 2)}}
+						<div class="widget-content">
+							<form action="/show_pdf?id={{.File.ID}}" method="post" enctype="multipart/form-data" >		
+								<input type="hidden" name="file_category" value="{{.File.File_category}}">
+								<div class="login-fields">									
+									<div class="field">
+										<label for="file one" class="vis">Re Upload File:</label>
+										<input class="form-control" type="file" id="file" name="file" accept="application/pdf" required >
+									</div>	
+								</div>
+								
+								<div class="login-actions">
+									<button class="button btn btn-primary btn-large">Upload</button>
+								</div>
+							</form>
+				
+						</div>
+						{{end}}
+
+						<div style="color: green; font-weight: bold;">
+							{{.Message}}
+						</div>
+				</div></div>	      	
+</div></div></div></div>
+
+{{template "bottom"}}
+{{end}}

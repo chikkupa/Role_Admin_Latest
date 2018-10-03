@@ -1,0 +1,71 @@
+{{define "pdf_view"}}
+{{template "top" .Header}}
+{{template "menu" .Header}}
+
+<div class="main">	
+	<div class="main-inner">
+	    <div class="container">	
+			<div class="row">	      	
+				<div class="span12">	      		
+					<div class="widget">
+		
+						<div class="widget-content">
+							<object data="{{.Filename}}" type="application/pdf" width="100%" height="600">
+								<a href="{{.Filename}}">test.pdf</a>
+							</object>
+						</div>
+
+						<ul>
+							<li><strong>Filename: &nbsp; </strong> {{.File.Filename}}</li>
+							<li><strong>Category: &nbsp; </strong> {{.File.FileCategory}}</li>
+							<li><strong>Status: &nbsp; </strong>
+								{{if eq .File.Status 0}}Pending{{end}}
+								{{if eq .File.Status 1}}Approved{{end}}
+								{{if eq .File.Status 2}}Denied{{end}}
+							</li>
+							<li><strong>Expiry Date: &nbsp; </strong> {{.File.ExpiryDate}}</li>
+							{{if eq .Role 2}}
+							<li><strong>Message: &nbsp; </strong>{{.File.Message}}</li>
+							{{end}}
+						</ul>
+
+						{{if and (eq .File.Status 2) (eq .Role 2)}}
+						<div class="widget-content">
+							<form action="/show_pdf?id={{.File.ID}}" method="post" enctype="multipart/form-data" >		
+								<input type="hidden" name="file_category" value="{{.File.CategoryID}}">
+								<div class="login-fields">									
+									<div class="field">
+										<label for="file one" class="vis">Re Upload File:</label>
+										<input class="form-control" type="file" id="file" name="file" accept="application/pdf" required >
+									</div>	
+								</div>
+								
+								<div class="login-actions">
+									<button class="button btn btn-primary btn-large">Upload</button>
+								</div>
+							</form>
+				
+						</div>
+						{{end}}
+
+						<div style="color: green; font-weight: bold;">
+							{{.Message}}
+						</div>
+
+						<div style="text-align: center;">
+							{{ if eq .PreviousIndex 0 }}
+							 << Previous 
+							{{else}}
+							<a href="/show_pdf?id={{.PreviousIndex}}"> << Previous </a> 
+							{{end}}
+							{{ if eq .NextIndex 0 }}
+							 Next >> 
+							{{else}}
+							<a href="/show_pdf?id={{.NextIndex}}"> Next >> </a> 
+							{{end}}
+						</div>
+				</div></div>	      	
+</div></div></div></div>
+
+{{template "bottom"}}
+{{end}}
